@@ -6,7 +6,10 @@ use nzway;
 create table if not exists product (
     id Bigint(20) PRIMARY KEY comment 'id',
     name varchar(50) NOT NULL comment '名称',
-    avatar varchar(256) NOT NULL comment '图片地址',
+    avatar_id int(10) not null ,
+    brand varchar(50) not null ,
+    save_place varchar(50) not null ,
+    standard varchar(50) not null ,
     price double NOT NULL comment '销售价格',
     description varchar(1000) NOT NULL  comment '描述'
 );
@@ -33,25 +36,74 @@ create table product_type(
     tid int(10) not null
 );
 
-create table field_key(
+create table distributor(
     id int(10) primary key ,
-    name varchar(20) not null
+    name varchar(50) not null ,
+    address varchar(200) not null ,
+    phone varchar(50) not null
 );
 
-create table field_value(
+create table company(
     id int(10) primary key ,
-    value varchar(1000) not null
+    name varchar(50) not null ,
+    address varchar(200) not null ,
+    phone varchar(50) not null
 );
 
-create table type_field(
-    id int(10) primary key ,
-    tid int(10) not null ,
-    kid int(10) not null
-);
-
-create table field(
+create table pesticide(
     id int(10) primary key ,
     pid int(10) not null ,
-    kid int(10) not null ,
-    vid int(10) not null
-)
+    nid int(10) not null ,
+    company_id int(10) not null ,
+    distributor_id int(10) not null ,
+    level varchar(50) not null ,
+    content varchar(50) not null ,
+    register_number varchar(100) not null ,
+    production_license_number varchar(100) not null ,
+    standard_number varchar(100) not null
+);
+
+create table fertilizer(
+    id int(10) primary key ,
+    pid int(10) not null ,
+    nid int(10) not null ,
+    type varchar(50) not null ,
+    element_type varchar(50) not null ,
+    element varchar(50) not null ,
+    total_nutrient varchar(50) not null
+);
+
+create table number(
+    id int(10) primary key ,
+    register_number varchar(100) not null ,
+    production_license_number varchar(100) not null ,
+    standard_number varchar(100) not null
+);
+
+create table insect(
+    id int(10) primary key ,
+    avatar_id int(10) not null ,
+    name varchar(50) not null ,
+    nick_name varchar(100) ,
+    description varchar(500) default '没有任何描述'
+);
+
+create table tree(
+    id int(10) primary key ,
+    name varchar(50) not null ,
+    nick_name varchar(100) ,
+    avatar_id int(10) not null ,
+    description varchar(500) default '没有任何描述'
+);
+
+
+create table avatar(
+    id int(10) primary key ,
+    url varchar(256) not null
+);
+
+create table cure(
+    id int(10) primary key ,
+    pesticide_id int(10) not null ,
+    insect_id int(10) not null
+);

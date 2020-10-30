@@ -12,7 +12,7 @@ import java.util.Map;
 public class Product {
     private Integer id;
     private String name;
-    private String avatar;
+    private Avatar avatar;
     private Double price;
     private String description;
     private String type;

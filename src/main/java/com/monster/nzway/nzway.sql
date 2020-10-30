@@ -11,6 +11,8 @@ create table if not exists product (
     save_place varchar(50) not null ,
     standard varchar(50) not null ,
     price double NOT NULL comment '销售价格',
+    company_id int(10) not null ,
+    distributor_id int(10) not null ,
     description varchar(1000) NOT NULL  comment '描述'
 );
 
@@ -54,13 +56,8 @@ create table pesticide(
     id int(10) primary key ,
     pid int(10) not null ,
     nid int(10) not null ,
-    company_id int(10) not null ,
-    distributor_id int(10) not null ,
     level varchar(50) not null ,
-    content varchar(50) not null ,
-    register_number varchar(100) not null ,
-    production_license_number varchar(100) not null ,
-    standard_number varchar(100) not null
+    content varchar(50) not null
 );
 
 create table fertilizer(

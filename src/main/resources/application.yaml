@@ -16,9 +16,16 @@ spring:
     username: root
     password: root
 
-    
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.monster.nzway.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+
 server:
   port: 8080
-
 
 

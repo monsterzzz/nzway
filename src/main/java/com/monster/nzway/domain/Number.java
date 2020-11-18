@@ -8,7 +8,8 @@ import lombok.Data;
 
 @Data
 public class Number {
-    private String registerNumber;
-    private String productionLicenseNumber;
-    private String standardNumber;
+    private Long id;
+    private String register;
+    private String productionLicense;
+    private String standard;
 }

@@ -1,5 +1,8 @@
 package com.monster.nzway.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
@@ -7,9 +10,11 @@ import lombok.Data;
  */
 @Data
 public class Insect {
-    private Integer id;
+
+    @TableId(type = IdType.AUTO)
+    private Long id;
     private Avatar avatar;
     private String name;
-    private String nickName;
+    private String nickname;
     private String description;
 }

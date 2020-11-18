@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.monster.nzway.mapper.ProductMapper">
+
+    <resultMap id="product" type="com.monster.nzway.domain.Product">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="brand" property="brand"/>
+        <result column="standard" property="standard"/>
+        <result column="price" property="price"/>
+        <result column="description" property="description"/>
+        <association
+                column="avatar_id"
+                property="avatar"
+                javaType="com.monster.nzway.domain.Avatar"
+                select="com.monster.nzway.mapper.AvatarMapper.selectById"
+        >
+            <id column="id" property="id"/>
+            <result column="url" property="url"/>
+        </association>
+        <association 
+                column="company_id" 
+                property="company" 
+                javaType="com.monster.nzway.domain.Company"
+                select="com.monster.nzway.mapper.CompanyMapper.selectById"
+        >
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="address" property="address"/>
+            <result column="phone" property="phone"/>
+        </association>
+        <association 
+                column="distributor_id" 
+                property="distributor" 
+                javaType="com.monster.nzway.domain.Distributor"
+                select="com.monster.nzway.mapper.DistributorMapper.selectById"
+        >
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="address" property="address"/>
+            <result column="phone" property="phone"/>
+        </association>
+    </resultMap>
+    
+
+    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="id" parameterType="com.monster.nzway.domain.Product">
+        insert into product(name, avatar_id, brand, standard, price, company_id, distributor_id, description)
+        values (#{name}, #{avatar.id}, #{brand}, #{standard}, #{price}, #{company.id}, #{distributor.id}, #{description})
+    </insert>
+
+</mapper>

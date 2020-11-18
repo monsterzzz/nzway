@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.monster.nzway.mapper.InsectMapper">
+
+    <resultMap id="InsectResultMap" type="com.monster.nzway.domain.Insect">
+
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="description" property="description"/>
+        <association
+                property="avatar"
+                column="avatar_id"
+                select="com.monster.nzway.mapper.AvatarMapper.selectById"
+
+        />
+
+    </resultMap>
+
+    <select id="selectByPesticideId"
+            resultType="com.monster.nzway.domain.Insect"
+            parameterType="long"
+    >
+        select * from insect where insect.id in (select cure.insect_id from cure where pesticide_id = #{id})
+    </select>
+
+    <insert id="insertInsect" parameterType="com.monster.nzway.domain.Insect" useGeneratedKeys="true" keyProperty="id">
+        insert into insect(avatar_id, name, nickname, description)
+        VALUES (#{avatar.id}, #{name}, #{nickname}, #{description})
+    </insert>
+
+    <insert id="insertCure">
+        insert into cure(pesticide_id, insect_id) VALUES (#{pid},#{insect_id});
+    </insert>
+
+
+</mapper>

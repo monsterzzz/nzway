@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.monster.nzway.mapper.PesticideMapper">
+
+    <resultMap id="PesticideResultMap"
+               type="com.monster.nzway.domain.Pesticide"
+               extends="com.monster.nzway.mapper.ProductMapper.product"
+    >
+        <result column="level" property="level"/>
+        <result column="content" property="content"/>
+        <association
+                property="number"
+                column="nid"
+                select="com.monster.nzway.mapper.NumberMapper.selectById"
+        />
+        <collection
+                property="insects"
+                column="pid"
+                select="com.monster.nzway.mapper.InsectMapper.selectByPesticideId"
+        />
+
+    </resultMap>
+    <insert id="insertPesticide" keyProperty="id" keyColumn="id" useGeneratedKeys="true" parameterType="com.monster.nzway.domain.Pesticide">
+        insert into pesticide(pid, nid, level, content) VALUES (#{id}, #{number.id}, #{level}, #{content})
+    </insert>
+
+    <select id="selectAll" resultMap="PesticideResultMap">
+        select * from product left join (select id as pesticide_id,pid, nid, level, content from pesticide) as `pesticide` on product.id = pesticide.pid
+    </select>
+
+</mapper>
